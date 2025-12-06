@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="tit">Mobile Brand and Model Filter</title>
+    <style>
+        body {
+            margin: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            padding: 20px;
+            background-color: rgb(115, 190, 144);
+             
+        }
+        
+        #container{
+            align-items: center;
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 786px;
+            margin-left: 400px;
+             
+        }
+        h1 {
+            text-align: center;
+           
+        }
+
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        select {
+            margin-right: 20px;
+            padding: 5px;
+            font-size: 16px;
+            margin: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 100px;
+            color: gr;
+            margin-left: 16px;
+            margin-top: 1px;
+            background-color: red;
+        }
+
+        #mobile-details {
+            width: 500px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #d69b9b;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <h1>Mobile Brand and Model Filter</h1>
+    
+    <label for="brand">Select Brand:</label>
+    <select id="brand">
+        <option value="">Select Brand</option>
+        <option value="iphone">iPhone</option>
+        <option value="xiomi">Xiaomi</option>
+        <option value="realme">Realme</option>
+        <option value="samsung">Samsung</option>
+    </select>
+<br>
+  
+    <label for="model">Select Model:</label>
+    <select id="model">
+        <option value="">Select Model</option>
+    </select>
+<br>
+   
+    <button id="search">Search</button>
+
+   
+    <div id="mobile-details"></div>
+    </div>
+
+    <script>
+        const mobiles = {
+            iphone: {
+                iphone7: { processor: "Snapdragon 8 Gen 2", memory: { ram: 12, storage: 512 }, camera: { rear: { main: 200 }, front: 10 }, battery: 5000, operatingSystem: "Android 13", specialFeatures: ["S Pen support", "Ultrasonic fingerprint sensor"] },
+                iphone8: { processor: "Snapdragon 12 Gen 5", memory: { ram: 8, storage: 256 }, camera: { rear: { main: 180 }, front: 12 }, battery: 8000, operatingSystem: "iphone 8", specialFeatures: ["S Pen support", "Ultrasonic fingerprint sensor"] },
+                iphoneX: { processor: "Snapdragon 5 Gen 4", memory: { ram: 8, storage: 256 }, camera: { rear: { main: 130 }, front: 14 }, battery: 6000, operatingSystem: "iphone X", specialFeatures: ["S Pen support", "Ultrasonic fingerprint sensor"] }
+            },
+            xiomi: {
+                redmiA2: { modelName: "Mi 12 Pro", processor: "Snapdragon 8 Gen 1", memory: { ram: 8, storage: 256 }, camera: { rear: { main: "50MP" }, front: "32MP" }, battery: 4600, operatingSystem: "Android 12", specialFeatures: ["Wireless charging", "In-display fingerprint sensor"] },
+                redmi10: { modelName: "Mi 8 Pro", processor: "Snapdragon 7 Gen 5", memory: { ram: 12, storage: 256 }, camera: { rear: { main: "50MP" }, front: "32MP" }, battery: 5000, operatingSystem: "Android 11", specialFeatures: ["Wireless charging", "In-display fingerprint sensor"] }
+            },
+            realme: {
+                realmiNote50: { model: "Realme Note 50", processor: "Snapdragon 8 Gen 1", memory: { ram: "8GB", storage: "128GB" }, camera: { rear: { resolution: "64MP" }, front: { resolution: "16MP" } }, battery: { capacity: "5000mAh" }, operatingSystem: "Android 12" },
+            },
+            samsung: {
+                samsung_Galaxy_S24: { model: "Samsung Galaxy S24 Ultra", processor: "Snapdragon 8 Gen 2", memory: { ram: 12, storage: 512 }, camera: { rearCamera: { megapixel: 108 }, frontCamera: { megapixel: 40 } }, batteryCapacity: 5000, operatingSystem: "Android 14" }
+            }
+        };
+
+        document.getElementById("brand").addEventListener("change", function() {
+            const brand = this.value;
+            const modelSelect = document.getElementById("model");
+            modelSelect.innerHTML = '<option value="">Select Model</option>'; // Reset models
+
+            if (brand) {
+                const models = Object.keys(mobiles[brand]);
+                models.forEach(model => {
+                    const option = document.createElement("option");
+                    option.value = model;
+                    option.textContent = model;
+                    modelSelect.appendChild(option);
+                });
+            }
+        });
+
+        document.getElementById("search").addEventListener("click", function() {
+            const brand = document.getElementById("brand").value;
+            const model = document.getElementById("model").value;
+            const mobileDetails = document.getElementById("mobile-details");
+
+            if (brand && model) {
+                const mobile = mobiles[brand][model];
+                mobileDetails.innerHTML = `
+                    <h2>${brand} ${model}</h2>
+                    <p><strong>Processor:</strong> ${mobile.processor}</p>
+                    <p><strong>RAM:</strong> ${mobile.memory.ram} GB</p>
+                    <p><strong>Storage:</strong> ${mobile.memory.storage} GB</p>
+                    <p><strong>Camera:</strong> Rear - ${mobile.camera.rear.main} MP, Front - ${mobile.camera.front} MP</p>
+                    <p><strong>Battery:</strong> ${mobile.battery} mAh</p>
+                    <p><strong>Operating System:</strong> ${mobile.operatingSystem}</p>
+                    <p><strong>Special Features:</strong> ${mobile.specialFeatures.join(', ')}</p>
+                `;
+            } else {
+                mobileDetails.innerHTML = "<p>Please select both a brand and a model.</p>";
+            }
+        });
+    </script>
+
+</body>
+</html>
