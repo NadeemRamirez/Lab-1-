@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mark Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body, html {
+	height:100%;
+	font-family: 'Poppins', sans-serif;
+	background:#f1f8e9b8;
+	font-size:15px;
+	margin:0px auto;
+	text-align:center;
+}
+table {
+	margin:auto;
+	width:400px;
+	border-collapse: collapse;
+	font-size:18px;
+	margin-top:20px;
+}
+table th, table td {
+	border:1px solid #555;
+	padding:10px;
+}
+h1 { margin-top:20px; font-size:32px; }
+</style>
+</head>
+
+<body>
+
+<h1>Student Mark Sheet</h1>
+
+<script>
+
+const generateMarksheet = () => {
+
+    
+    let dataStructure =90;
+    let operatingSystem = 78;
+    let chemistry = 92;
+    let graphics = 88;
+    let programming = 80;
+    const totalSubjects = 5;
+    let total = dataStructure + operatingSystem + chemistry + graphics + programming;
+    let percentage = total / totalSubjects;
+    let grade = "";
+    if (percentage > 90 && percentage <=100) grade = "A";
+    else if (percentage > 80 && percentage <=90) grade = "B";
+    else if (percentage > 70 && percentage <=80) grade = "C";
+    else if (percentage > 60 && percentage <=80) grade = "D";
+    else if (percentage > 50 && percentage <=70) grade = "E";
+    else if (percentage > 40 && percentage <=60) grade = "F";
+    else if(percentage <50 && percentage >=0) garde ="Fail";
+    else grade="invalid"
+    document.write(`
+        <table>
+            <tr><th>Subject</th><th>Marks</th></tr>
+
+            <tr><td>Data Structure</td><td>${dataStructure}</td></tr>
+            <tr><td>Operating System</td><td>${operatingSystem}</td></tr>
+            <tr><td>Engineering Chemistry</td><td>${chemistry}</td></tr>
+            <tr><td>Engineering Graphics</td><td>${graphics}</td></tr>
+            <tr><td>Computer Programming</td><td>${programming}</td></tr>
+
+            <tr><th>Total Marks</th><th>${total} / 500</th></tr>
+            <tr><th>Percentage</th><th>${percentage}%</th></tr>
+            <tr><th>Final Grade</th><th>${grade}</th></tr>
+        </table>
+    `);
+};
+
+generateMarksheet();
+</script>
+
+</body>
+</html>
